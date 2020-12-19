@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NetflixHelper.Models
+namespace ResumeRandomizer.Models
 {
     public class UserProfile
     {
@@ -12,12 +12,20 @@ namespace NetflixHelper.Models
 
         [Required]
         [MaxLength(50)]
-        public string Username { get; set; }
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
 
         [Required]
         [MaxLength(255)]
         public string Email { get; set; }
 
+        [MaxLength(15)]
+        public string Phone { get; set; }
 
+        [MaxLength(255)]
+        public string PortfolioLink { get; set; }
     }
 }

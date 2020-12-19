@@ -1,11 +1,11 @@
-﻿using NetflixHelper.Data;
-using NetflixHelper.Models;
+﻿using ResumeRandomizer.Data;
+using ResumeRandomizer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetflixHelper.Repositories
+namespace ResumeRandomizer.Repositories
 {
     public class UserProfileRepository
     {

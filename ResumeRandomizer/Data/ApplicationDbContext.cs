@@ -1,7 +1,7 @@
-﻿using NetflixHelper.Models;
+﻿using ResumeRandomizer.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace NetflixHelper.Data
+namespace ResumeRandomizer.Data
 {
     public class ApplicationDbContext : DbContext
     {

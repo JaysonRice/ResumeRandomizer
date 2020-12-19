@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetflixHelper.Data;
-using NetflixHelper.Models;
-using NetflixHelper.Repositories;
+using ResumeRandomizer.Data;
+using ResumeRandomizer.Models;
+using ResumeRandomizer.Repositories;
 
-namespace NetflixHelper.Controllers
+namespace ResumeRandomizer.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetflixHelper", "NetflixHelper\NetflixHelper.csproj", "{CFB1A0D3-30C3-4BAB-AE21-47D761049F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumeRandomizer", "ResumeRandomizer\ResumeRandomizer.csproj", "{CFB1A0D3-30C3-4BAB-AE21-47D761049F7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
