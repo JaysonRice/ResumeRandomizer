@@ -10,7 +10,6 @@ GO
 DROP TABLE IF EXISTS [ResumeProject];
 DROP TABLE IF EXISTS [ResumeEducation];
 DROP TABLE IF EXISTS [ResumeExperience];
-DROP TABLE IF EXISTS [Comment];
 DROP TABLE IF EXISTS [Resume];
 DROP TABLE IF EXISTS [Color];
 DROP TABLE IF EXISTS [Font];
@@ -47,7 +46,7 @@ CREATE TABLE [Education] (
   [Id] integer IDENTITY PRIMARY KEY NOT NULL,
   [Institution] varchar(255) NOT NULL,
   [Degree] varchar(255) NOT NULL,
-  [DateGraduated] date,
+  [DateGraduated] datetime,
   [UserProfileId] integer NOT NULL
 )
 GO
@@ -56,8 +55,8 @@ CREATE TABLE [Experience] (
   [Id] integer IDENTITY PRIMARY KEY NOT NULL,
   [JobTitle] varchar(255) NOT NULL,
   [Company] varchar(255) NOT NULL,
-  [DateStarted] date,
-  [DateFinished] date,
+  [DateStarted] datetime,
+  [DateFinished] datetime,
   [UserProfileId] integer NOT NULL
 )
 GO
@@ -65,8 +64,8 @@ GO
 CREATE TABLE [Project] (
   [Id] integer IDENTITY PRIMARY KEY NOT NULL,
   [ProjectName] varchar(255) NOT NULL,
-  [DateStarted] date,
-  [DateFinished] date,
+  [DateStarted] datetime,
+  [DateFinished] datetime,
   [UserProfileId] integer NOT NULL
 )
 GO
@@ -112,19 +111,8 @@ CREATE TABLE [Color] (
 )
 GO
 
-CREATE TABLE [Comment] (
-  [Id] integer IDENTITY PRIMARY KEY NOT NULL,
-  [Content] varchar(255) NOT NULL,
-  [CreateDateTime] datetime NOT NULL,
-  [ResumeId] integer NOT NULL,
-  [UserProfileId] integer NOT NULL
-)
-GO
 
 ALTER TABLE [Resume] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
-GO
-
-ALTER TABLE [Comment] ADD FOREIGN KEY ([ResumeId]) REFERENCES [Resume] ([Id])
 GO
 
 ALTER TABLE [ResumeExperience] ADD FOREIGN KEY ([ExperienceId]) REFERENCES [Experience] ([Id])
@@ -185,13 +173,13 @@ insert into Color (Id, ColorName) values (2, 'Blue');
 set identity_insert [Color] off
 
 set identity_insert [Education] on
-insert into Education (Id, Institution, Degree, DateGraduated, UserProfileId) values (1, 'Middle Tennessee State University', 'B.S. in Mass Communication', 'AUG 2017', 1);
-insert into Education (Id, Institution, Degree, DateGraduated, UserProfileId) values (2, 'Nashville Software School', 'Web Software Developer Certificate', 'AUG 2020', 1);
+insert into Education (Id, Institution, Degree, DateGraduated, UserProfileId) values (1, 'Middle Tennessee State University', 'B.S. in Mass Communication', '2017-8-1', 1);
+insert into Education (Id, Institution, Degree, DateGraduated, UserProfileId) values (2, 'Nashville Software School', 'Web Software Developer Certificate', '2020-8-1', 1);
 set identity_insert [Education] off
 
 set identity_insert [Experience] on
-insert into Experience (Id, JobTitle, Company, DateStarted, DateFinished, UserProfileId) values (1, 'Digital Marketing Associate', 'DotFM Group', 'DEC 2017', 'FEB 2019', 1);
-insert into Experience (Id, JobTitle, Company, DateStarted, DateFinished, UserProfileId) values (2, 'Software Developer', 'Nashville Software School', 'FEB 2020', 'AUG 2020', 1);
+insert into Experience (Id, JobTitle, Company, DateStarted, DateFinished, UserProfileId) values (1, 'Digital Marketing Associate', 'DotFM Group', '2017-12-1', '2019-02-01', 1);
+insert into Experience (Id, JobTitle, Company, DateStarted, DateFinished, UserProfileId) values (2, 'Software Developer', 'Nashville Software School', '2020-2-1', '2020-8-1', 1);
 set identity_insert [Experience] off
 
 set identity_insert [Project] on
