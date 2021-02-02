@@ -61,12 +61,6 @@ namespace ResumeRandomizer.Controllers
             return NoContent();
         }
 
-        [HttpGet("getuserprofile/{id}")]
-        public IActionResult GetUserProfileById(int id)
-        {
-            return Ok(_userProfileRepository.GetByUserId(id));
-        }
-
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

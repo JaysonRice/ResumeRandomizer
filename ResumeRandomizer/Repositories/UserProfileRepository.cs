@@ -35,10 +35,5 @@ namespace ResumeRandomizer.Repositories
             _context.SaveChanges();
         }
 
-        public UserProfile GetByUserId(int id)
-        {
-            return _context.UserProfile
-                .FirstOrDefault(up => up.Id == id);
-        }
     }
 }
