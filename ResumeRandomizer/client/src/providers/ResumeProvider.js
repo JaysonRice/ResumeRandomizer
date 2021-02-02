@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider"
 import "firebase/auth";
 
-export const ReviewPostContext = React.createContext();
+export const ResumeContext = React.createContext();
 
-export const ReviewPostProvider = (props) => {
+export const ResumeProvider = (props) => {
     const [resumes, setResumes] = useState([]);
 
     const apiUrl = "/api/resume";
@@ -102,11 +102,11 @@ export const ReviewPostProvider = (props) => {
     };
 
     return (
-        <ReviewPostContext.Provider value={{
+        <ResumeContext.Provider value={{
             resumes, getAllResumeList, getResume, getUserResumes, 
             addResume, deleteResume, editResume
         }}>
             {props.children}
-        </ReviewPostContext.Provider>
+        </ResumeContext.Provider>
     );
 };

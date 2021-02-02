@@ -1,4 +1,5 @@
-﻿using ResumeRandomizer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ResumeRandomizer.Data;
 using ResumeRandomizer.Models;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace ResumeRandomizer.Repositories
         public void Add(UserProfile userProfile)
         {
             _context.Add(userProfile);
+            _context.SaveChanges();
+        }
+
+        public void Update(UserProfile userProfile)
+        {
+            _context.Entry(userProfile).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
