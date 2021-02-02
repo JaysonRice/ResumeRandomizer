@@ -9,8 +9,7 @@ const ResumeList = () => {
 
     useEffect(() => {
         getUserResumes(userProfile.id)
-    }, [resumes, userProfile, getUserResumes]);
-
+    }, []);
 
     if (!resumes) {
         return null;

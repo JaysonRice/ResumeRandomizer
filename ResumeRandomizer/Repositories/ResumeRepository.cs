@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResumeRandomizer.Data;
 using ResumeRandomizer.Models;
+using ResumeRandomizer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +27,31 @@ namespace ResumeRandomizer.Repositories
                 .Include(r => r.HeaderFont)
                 .Include(r => r.BodyFont)
                 .Include(r => r.Color)
-                .Include(r => r.Educations)
-                .Include(r => r.Projects)
-                .Include(r => r.Experiences)
+                .Include(r => r.ResumeEducations)
+                .ThenInclude(re => re.Education)
+                .Include(r => r.ResumeProjects)
+                .ThenInclude(rp => rp.Project)
+                .Include(r => r.ResumeExperiences)
+                .ThenInclude(r => r.Experience)
                 .ToList();
         }
 
-        public List<Resume> GetByUserProfileId(int id)
+        public List<ResumeListView> GetByUserProfileId(int id)
         {
             return _context.Resume
                 .Where(r => r.UserProfileId == id)
-                .Include(r => r.UserProfile)
                 .Include(r => r.HeaderFont)
                 .Include(r => r.BodyFont)
                 .Include(r => r.Color)
-                .Include(r => r.Educations)
-                .Include(r => r.Projects)
-                .Include(r => r.Experiences)
+                .Select(r => new ResumeListView()
+                {
+                    Id = r.Id,
+                    Title = r.Title,
+                    CreateDateTime = r.CreateDateTime,
+                    HeaderFont = r.HeaderFont.FontName,
+                    BodyFont = r.BodyFont.FontName,
+                    Color = r.Color.ColorName
+                })
                 .ToList();
         }
 
@@ -53,9 +62,12 @@ namespace ResumeRandomizer.Repositories
                 .Include(r => r.HeaderFont)
                 .Include(r => r.BodyFont)
                 .Include(r => r.Color)
-                .Include(r => r.Educations)
-                .Include(r => r.Projects)
-                .Include(r => r.Experiences)
+                .Include(r => r.ResumeEducations)
+                .ThenInclude(re => re.Education)
+                .Include(r => r.ResumeProjects)
+                .ThenInclude(rp => rp.Project)
+                .Include(r => r.ResumeExperiences)
+                .ThenInclude(r => r.Experience)
                 .FirstOrDefault(r => r.Id == id);
         }
 

@@ -34,11 +34,9 @@ namespace ResumeRandomizer.Models
 
         public Color Color { get; set; }
 
-        public List<Education> Educations { get; set; }
-
-        public List<Project> Projects { get; set; }
-
-        public List<Experience> Experiences { get; set; }
+        public List<ResumeEducation> ResumeEducations { get; set; } = new List<ResumeEducation>();
+        public List<ResumeExperience> ResumeExperiences { get; set; } = new List<ResumeExperience>();
+        public List<ResumeProject> ResumeProjects { get; set; } = new List<ResumeProject>();
 
     }
 }
