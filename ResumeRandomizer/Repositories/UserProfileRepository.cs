@@ -1,4 +1,5 @@
-﻿using ResumeRandomizer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ResumeRandomizer.Data;
 using ResumeRandomizer.Models;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,11 @@ namespace ResumeRandomizer.Repositories
             _context.SaveChanges();
         }
 
-        public UserProfile GetByUserId(int id)
+        public void Update(UserProfile userProfile)
         {
-            return _context.UserProfile
-                .FirstOrDefault(up => up.Id == id);
+            _context.Entry(userProfile).State = EntityState.Modified;
+            _context.SaveChanges();
         }
+
     }
 }

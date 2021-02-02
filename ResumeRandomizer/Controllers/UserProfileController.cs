@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,11 +42,29 @@ namespace ResumeRandomizer.Controllers
                 nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
         }
 
-        [HttpGet("getuserprofile/{id}")]
-        public IActionResult GetUserProfileById(int id)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile userProfile)
         {
-            return Ok(_userProfileRepository.GetByUserId(id));
+            var currentUserProfile = GetCurrentUserProfile();
+
+            if (currentUserProfile.Id != userProfile.Id)
+            {
+                return Unauthorized();
+            }
+
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+
+            _userProfileRepository.Update(userProfile);
+            return NoContent();
         }
 
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
     }
 }
