@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, NavLink as RRNavLink } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Segment } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
@@ -19,49 +19,59 @@ export default function Header() {
   return (
     <div>
       {isLoggedIn && (
-        <Menu>
-          <>
-            <Menu.Item
-              name="resumes"
-              active={activeItem === "resumes"}
-              onClick={() => setActiveItem("resumes")}
-            >
-              <Menu.Item as={Link} tag={RRNavLink} to="/">
+        <Segment>
+          <Menu secondary>
+            <>
+              <Menu.Item
+                name="resumes"
+                active={activeItem === "resumes"}
+                onClick={() => setActiveItem("resumes")}
+                as={Link}
+                tag={RRNavLink}
+                to="/"
+              >
                 Resumes
               </Menu.Item>
-            </Menu.Item>
-            <Menu.Item
-              name="education"
-              active={activeItem === "education"}
-              onClick={() => setActiveItem("education")}
-            >
-              <Menu.Item as={Link} tag={RRNavLink} to={`/education`}>
+
+              <Menu.Item
+                name="education"
+                active={activeItem === "education"}
+                onClick={() => setActiveItem("education")}
+                as={Link}
+                tag={RRNavLink}
+                to={`/education`}
+              >
                 Education
               </Menu.Item>
-            </Menu.Item>
-            <Menu.Item
-              name="experience"
-              active={activeItem === "experience"}
-              onClick={() => setActiveItem("experience")}
-            >
-              <Menu.Item as={Link} tag={RRNavLink} to={`/experience`}>
+
+              <Menu.Item
+                name="experience"
+                active={activeItem === "experience"}
+                onClick={() => setActiveItem("experience")}
+                as={Link}
+                tag={RRNavLink}
+                to={`/experience`}
+              >
                 Experience
               </Menu.Item>
-            </Menu.Item>
-            <Menu.Item
-              name="projects"
-              active={activeItem === "projects"}
-              onClick={() => setActiveItem("projects")}
-            >
-              <Menu.Item as={Link} tag={RRNavLink} to={`/projects`}>
+
+              <Menu.Item
+                name="projects"
+                active={activeItem === "projects"}
+                onClick={() => setActiveItem("projects")}
+                as={Link}
+                tag={RRNavLink}
+                to={`/projects`}
+              >
                 Projects
               </Menu.Item>
-            </Menu.Item>
-            <Menu.Item position="right">
-              <Menu.Item onClick={logout}>Logout</Menu.Item>
-            </Menu.Item>
-          </>
-        </Menu>
+
+              <Menu.Item position="right" onClick={logout}>
+                Logout
+              </Menu.Item>
+            </>
+          </Menu>
+        </Segment>
       )}
 
       {!isLoggedIn && (
