@@ -14,10 +14,18 @@ export default function ApplicationViews() {
                 <Route path="/" exact>
                     {isLoggedIn ? <ResumeList /> : <Redirect to="/login" />}
                 </Route>
-                {/* <Redirect to="/user/:id"/> */}
-                {/* <Route path="/user/:id">
-                    {isLoggedIn ? <div> <ResumeList /> </div> : <Redirect to="/login" />}
-                </Route> */}
+
+                <Route path="/education">
+                    <p>Education</p>
+                </Route>
+
+                <Route path="/experience">
+                    <p>Experience</p>
+                </Route>
+
+                <Route path="/projects">
+                    <p>Projects</p>
+                </Route>
 
                 <Route path="/login">
                     <Login />
