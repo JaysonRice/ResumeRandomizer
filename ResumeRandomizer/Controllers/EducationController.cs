@@ -28,7 +28,7 @@ namespace ResumeRandomizer.Controllers
         }
 
         [HttpGet("getbyuser/{id}")]
-        public IActionResult GetResumesByUser(int id)
+        public IActionResult GetEducationByUser(int id)
         {
             return Ok(_educationRepository.GetByUserProfileId(id));
         }

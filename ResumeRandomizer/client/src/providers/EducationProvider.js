@@ -2,27 +2,15 @@ import React, { useState, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 import "firebase/auth";
 
-export const ResumeContext = React.createContext();
+export const EducationContext = React.createContext();
 
-export const ResumeProvider = (props) => {
-  const [resumes, setResumes] = useState([]);
+export const EducationProvider = (props) => {
+  const [education, setEducation] = useState([]);
 
-  const apiUrl = "/api/resume";
+  const apiUrl = "/api/education";
   const { getToken } = useContext(UserProfileContext);
 
-  const getAllResumeList = () =>
-    getToken().then((token) =>
-      fetch(`${apiUrl}/resumelist`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then(setResumes)
-    );
-
-  const getResume = (id) => {
+  const getEducation = (id) => {
     return getToken().then((token) =>
       fetch(apiUrl + `/${id}`, {
         method: "Get",
@@ -40,7 +28,7 @@ export const ResumeProvider = (props) => {
     );
   };
 
-  const getUserResumes = (id) => {
+  const getUserEducation = (id) => {
     getToken().then((token) =>
       fetch(apiUrl + `/getbyuser/${id}`, {
         method: "Get",
@@ -50,14 +38,14 @@ export const ResumeProvider = (props) => {
         },
       }).then((resp) => {
         if (resp.ok) {
-          return resp.json().then(setResumes);
+          return resp.json().then(setEducation);
         }
         throw new Error("Unauthorized");
       })
     );
   };
 
-  const addResume = (resume) =>
+  const addEducation = (education) =>
     getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
@@ -65,7 +53,7 @@ export const ResumeProvider = (props) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(resume),
+        body: JSON.stringify(education),
       }).then((resp) => {
         if (resp.ok) {
           return resp.json();
@@ -74,7 +62,7 @@ export const ResumeProvider = (props) => {
       })
     );
 
-  const deleteResume = (id) => {
+  const deleteEducation = (id) => {
     return getToken().then((token) =>
       fetch(apiUrl + `/${id}`, {
         method: "DELETE",
@@ -90,7 +78,7 @@ export const ResumeProvider = (props) => {
     );
   };
 
-  const editResume = (id, resume) => {
+  const editEducation = (id, education) => {
     return getToken().then((token) =>
       fetch(apiUrl + `/${id}`, {
         method: "PUT",
@@ -98,7 +86,7 @@ export const ResumeProvider = (props) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(resume),
+        body: JSON.stringify(education),
       }).then((resp) => {
         if (resp.ok) {
           return;
@@ -109,18 +97,17 @@ export const ResumeProvider = (props) => {
   };
 
   return (
-    <ResumeContext.Provider
+    <EducationContext.Provider
       value={{
-        resumes,
-        getAllResumeList,
-        getResume,
-        getUserResumes,
-        addResume,
-        deleteResume,
-        editResume,
+        education,
+        getEducation,
+        getUserEducation,
+        addEducation,
+        deleteEducation,
+        editEducation,
       }}
     >
       {props.children}
-    </ResumeContext.Provider>
+    </EducationContext.Provider>
   );
 };

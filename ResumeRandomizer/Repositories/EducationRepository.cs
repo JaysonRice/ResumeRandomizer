@@ -19,13 +19,6 @@ namespace ResumeRandomizer.Repositories
             _context = context;
         }
 
-        public List<Education> GetAllEducationList()
-        {
-            return _context.Education
-                .Include(e => e.UserProfile)
-                .ToList();
-        }
-
         public List<Education> GetByUserProfileId(int id)
         {
             return _context.Education

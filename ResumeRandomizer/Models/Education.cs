@@ -11,10 +11,6 @@ namespace ResumeRandomizer.Models
 
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string Title { get; set; }
-
         public string Institution { get; set; }
 
         public string Degree { get; set; }
