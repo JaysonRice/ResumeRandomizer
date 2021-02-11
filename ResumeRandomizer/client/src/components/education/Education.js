@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Card } from "semantic-ui-react";
+import { Button, Card, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import { FormatDate } from "../helpers/FormatDate";
 
@@ -16,8 +16,7 @@ export default ({ education }) => {
 
   const removeEducation = (e) => {
     e.preventDefault();
-    deleteEducation(education.id);
-    // Might need to getEducation here to rerender
+    deleteEducation(education.id).then(toggleDelete);
   };
 
   return (
@@ -28,9 +27,23 @@ export default ({ education }) => {
             <h3>{education.institution}</h3>
             <h5>Degree: {education.degree}</h5>
             {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
-            <Button onClick={() => removeEducation}>Remove Education</Button>
+            <Button onClick={toggleDelete}>Remove Education</Button>
           </div>
         </Card>
+
+        <Modal open={showDeleteModal} toggle={toggleDelete}>
+          <Modal.Header toggle={toggleDelete}>
+            Delete this Education?
+          </Modal.Header>
+          <Modal.Content>
+            <div className="buttonContainer">
+              <Button onClick={toggleDelete}>Cancel</Button>
+              <Button negative type="submit" onClick={removeEducation}>
+                Delete
+              </Button>
+            </div>
+          </Modal.Content>
+        </Modal>
       </div>
     </>
   );
