@@ -1,15 +1,24 @@
-import React from "react";
-import { Card } from "semantic-ui-react";
+import React, { useContext, useState } from "react";
+import { Button, Card } from "semantic-ui-react";
+import { EducationContext } from "../../providers/EducationProvider";
+import { FormatDate } from "../helpers/FormatDate";
 
 export default ({ education }) => {
-  let formatedDate;
-  let unformatedDate;
+  const [showDeleteModal, setDeleteShowModal] = useState(false);
+  const toggleDelete = () => setDeleteShowModal(!showDeleteModal);
 
+  const { deleteEducation } = useContext(EducationContext);
+
+  let formatedDate;
   if (education.dateGraduated != null) {
-    unformatedDate = education.dateGraduated.split("T")[0];
-    const [year, month, day] = unformatedDate.split("-");
-    formatedDate = month + "/" + day + "/" + year;
+    formatedDate = FormatDate(education.dateGraduated);
   }
+
+  const removeEducation = (e) => {
+    e.preventDefault();
+    deleteEducation(education.id);
+    // Might need to getEducation here to rerender
+  };
 
   return (
     <>
@@ -18,7 +27,8 @@ export default ({ education }) => {
           <div className="educationInfo">
             <h3>{education.institution}</h3>
             <h5>Degree: {education.degree}</h5>
-            <h5>Date Graduated: {formatedDate}</h5>
+            {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
+            <Button onClick={() => removeEducation}>Remove Education</Button>
           </div>
         </Card>
       </div>
