@@ -9,6 +9,8 @@ const EducationList = () => {
   const { education, getUserEducation } = useContext(EducationContext);
   const userProfile = JSON.parse(sessionStorage.userProfile);
 
+  const [addingEducation, setAddingEducation] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 
@@ -24,16 +26,13 @@ const EducationList = () => {
     <>
       <h3>{userProfile.firstName}'s Education</h3>
 
-      <Button onClick={toggleModal}>New Education</Button>
+      <Button onClick={() => setAddingEducation(true)}>New Education</Button>
+
+      <AddEducationForm />
+
       {education.map((education) => {
         return <Education key={education.id} education={education} />;
       })}
-
-      <Modal open={showModal} toggle={toggleModal}>
-        <Modal.Header toggle={toggleModal}>Add Education</Modal.Header>
-
-        <AddEducationForm toggleModal={toggleModal} />
-      </Modal>
     </>
   );
 };
