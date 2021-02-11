@@ -17,7 +17,7 @@ export default ({ education }) => {
         <Card>
           <div className="educationInfo">
             <h3>{education.institution}</h3>
-            <h5>Degree or Diploma: {education.degree}</h5>
+            <h5>Degree: {education.degree}</h5>
             <h5>Date Graduated: {formatedDate}</h5>
           </div>
         </Card>

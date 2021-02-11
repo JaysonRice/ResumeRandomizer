@@ -4,7 +4,7 @@ import { Button, Form, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import Calendar from "react-calendar";
 
-const AddEducationForm = () => {
+const AddEducationForm = ({ setAddingEducation }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const { addEducation } = useContext(EducationContext);
 
@@ -17,7 +17,7 @@ const AddEducationForm = () => {
 
   const handleUserInput = (e) => {
     const updatedState = { ...formState };
-    updatedState[e.target.name] = e.target.value;
+    updatedState[e.target.id] = e.target.value;
     setformState(updatedState);
   };
 
@@ -25,7 +25,7 @@ const AddEducationForm = () => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
     formState.dateGraduated = value;
-    // addEducation(formState).then(() => toggleModal);
+    addEducation(formState).then(setAddingEducation(false));
   };
 
   return (
@@ -55,7 +55,9 @@ const AddEducationForm = () => {
           <Calendar onChange={calendarChange} defaultValue={value} />
         </Form.Group>
 
-        <Button color="black">Cancel</Button>
+        <Button color="black" onClick={() => setAddingEducation(false)}>
+          Cancel
+        </Button>
         <Button
           content="Save"
           labelPosition="right"

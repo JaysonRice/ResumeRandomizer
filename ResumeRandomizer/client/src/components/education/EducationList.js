@@ -11,12 +11,9 @@ const EducationList = () => {
 
   const [addingEducation, setAddingEducation] = useState(false);
 
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => setShowModal(!showModal);
-
   useEffect(() => {
     getUserEducation(userProfile.id);
-  }, []);
+  }, [education]);
 
   if (!education) {
     return null;
@@ -26,9 +23,11 @@ const EducationList = () => {
     <>
       <h3>{userProfile.firstName}'s Education</h3>
 
-      <Button onClick={() => setAddingEducation(true)}>New Education</Button>
-
-      <AddEducationForm />
+      {addingEducation ? (
+        <AddEducationForm setAddingEducation={setAddingEducation} />
+      ) : (
+        <Button onClick={() => setAddingEducation(true)}>Add Education</Button>
+      )}
 
       {education.map((education) => {
         return <Education key={education.id} education={education} />;
