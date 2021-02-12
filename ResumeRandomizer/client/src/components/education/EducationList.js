@@ -28,10 +28,11 @@ const EducationList = () => {
       ) : (
         <Button onClick={() => setAddingEducation(true)}>Add Education</Button>
       )}
-
-      {education.map((education) => {
-        return <Education key={education.id} education={education} />;
-      })}
+      <div className="educationList">
+        {education.map((education) => {
+          return <Education key={education.id} education={education} />;
+        })}
+      </div>
     </>
   );
 };

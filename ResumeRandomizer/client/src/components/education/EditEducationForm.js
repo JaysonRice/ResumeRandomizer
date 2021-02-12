@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
-import { Button, Form, Modal } from "semantic-ui-react";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import Calendar from "react-calendar";
 
-const AddEducationForm = ({ setAddingEducation }) => {
+const EditEducationForm = ({ education, setEditingEducation }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-  const { addEducation } = useContext(EducationContext);
+  const { editEducation } = useContext(EducationContext);
 
   const [formState, setformState] = useState({ userProfileId: +userProfileId });
   const [value, setValue] = useState(new Date());
@@ -21,11 +20,17 @@ const AddEducationForm = ({ setAddingEducation }) => {
     setformState(updatedState);
   };
 
-  const submit = (e) => {
+  useEffect(() => {
+    setformState(education);
+  }, []);
+
+  const submitChanges = (e) => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
     formState.dateGraduated = value.toLocaleDateString("zh-Hans-CN");
-    addEducation(formState).then(setAddingEducation(false));
+    editEducation(formState.id, formState).then(() =>
+      setEditingEducation(false)
+    );
   };
 
   return (
@@ -36,7 +41,7 @@ const AddEducationForm = ({ setAddingEducation }) => {
             id="institution"
             onChange={handleUserInput}
             label="Institution Name"
-            placeholder="Institution Name"
+            placeholder={education.institution}
             required
           />
         </Form.Group>
@@ -46,7 +51,7 @@ const AddEducationForm = ({ setAddingEducation }) => {
             id="degree"
             onChange={handleUserInput}
             label="Degree"
-            placeholder="Degree or Certificate"
+            placeholder={education.degree}
             required
           />
         </Form.Group>
@@ -56,22 +61,28 @@ const AddEducationForm = ({ setAddingEducation }) => {
             label="Date Graduated"
             value={value.toLocaleDateString()}
           />
-          <Calendar onChange={calendarChange} defaultValue={value} />
+          <Calendar
+            onChange={calendarChange}
+            value={value}
+            defaultValue={education.dateGraduated}
+          />
         </Form.Group>
 
-        <Button color="black" onClick={() => setAddingEducation(false)}>
-          Cancel
-        </Button>
-        <Button
-          content="Save"
-          labelPosition="right"
-          icon="checkmark"
-          positive
-          onClick={submit}
-        />
+        <Form.Group>
+          <Button color="black" onClick={() => setEditingEducation(false)}>
+            Cancel
+          </Button>
+          <Button
+            content="Save Changes"
+            labelPosition="right"
+            icon="checkmark"
+            positive
+            onClick={submitChanges}
+          />
+        </Form.Group>
       </Form>
     </>
   );
 };
 
-export default AddEducationForm;
+export default EditEducationForm;

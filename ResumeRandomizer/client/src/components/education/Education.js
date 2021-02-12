@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { Button, Card, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import { FormatDate } from "../helpers/FormatDate";
+import EditEducationForm from "./EditEducationForm";
 
 export default ({ education }) => {
   const [showDeleteModal, setDeleteShowModal] = useState(false);
   const toggleDelete = () => setDeleteShowModal(!showDeleteModal);
+  const [editingEducation, setEditingEducation] = useState(false);
 
   const { deleteEducation } = useContext(EducationContext);
 
@@ -23,12 +25,20 @@ export default ({ education }) => {
     <>
       <div className="educationOverview">
         <Card>
-          <div className="educationInfo">
-            <h3>{education.institution}</h3>
-            <h5>Degree: {education.degree}</h5>
-            {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
-            <Button onClick={toggleDelete}>Remove Education</Button>
-          </div>
+          {!editingEducation ? (
+            <div className="educationInfo">
+              <h3>{education.institution}</h3>
+              <h5>Degree: {education.degree}</h5>
+              {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
+              <Button onClick={() => setEditingEducation(true)}>Edit</Button>
+              <Button onClick={toggleDelete}>Remove</Button>
+            </div>
+          ) : (
+            <EditEducationForm
+              education={education}
+              setEditingEducation={setEditingEducation}
+            />
+          )}
         </Card>
 
         <Modal open={showDeleteModal} toggle={toggleDelete}>

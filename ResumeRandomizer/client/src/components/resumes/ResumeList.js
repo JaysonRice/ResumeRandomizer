@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { ResumeContext } from "../../providers/ResumeProvider";
 import Resume from "./Resume";
+import "../css/Education.css";
 
 const ResumeList = () => {
   const { resumes, getUserResumes } = useContext(ResumeContext);

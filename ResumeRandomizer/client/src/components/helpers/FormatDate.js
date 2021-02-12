@@ -18,5 +18,5 @@ export const FormatDate = (date) => {
   unformatedDate = date.split("T")[0];
   const [year, month, day] = unformatedDate.split("-");
 
-  return monthName[parseInt(month)] + " " + year;
+  return monthName[parseInt(month - 1)] + " " + year;
 };
