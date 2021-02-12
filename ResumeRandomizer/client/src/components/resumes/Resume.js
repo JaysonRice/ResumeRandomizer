@@ -2,10 +2,6 @@ import React from "react";
 import { Card } from "semantic-ui-react";
 
 export default ({ resume }) => {
-  if (!resume) {
-    return null;
-  }
-
   return (
     <>
       <div className="resumeOverview">

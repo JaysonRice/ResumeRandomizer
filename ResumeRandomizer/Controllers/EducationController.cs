@@ -16,68 +16,60 @@ namespace ResumeRandomizer.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ResumeController : ControllerBase
+    public class EducationController : ControllerBase
     {
 
-        private readonly ResumeRepository _resumeRepository;
+        private readonly EducationRepository _educationRepository;
         private readonly UserProfileRepository _userProfileRepository;
-        public ResumeController(ApplicationDbContext context)
+        public EducationController(ApplicationDbContext context)
         {
-            _resumeRepository = new ResumeRepository(context);
+            _educationRepository = new EducationRepository(context);
             _userProfileRepository = new UserProfileRepository(context);
         }
 
-        [HttpGet("resumelist")]
-        public IActionResult GetResumeList()
-        {
-
-            return Ok(_resumeRepository.GetAllResumeList());
-        }
-
-
         [HttpGet("getbyuser/{id}")]
-        public IActionResult GetResumesByUser(int id)
+        public IActionResult GetEducationByUser(int id)
         {
-            return Ok(_resumeRepository.GetByUserProfileId(id));
+            return Ok(_educationRepository.GetByUserProfileId(id));
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var resume = _resumeRepository.GetById(id);
-            if (resume == null)
+            var education = _educationRepository.GetById(id);
+            if (education == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(resume);
+                return Ok(education);
             }
         }
 
         [HttpPost]
-        public IActionResult Post(Resume resume)
+        public IActionResult Post(Education education)
         {
-            _resumeRepository.Add(resume);
-            return CreatedAtAction("Get", new { id = resume.Id }, resume);
+            _educationRepository.Add(education);
+            return CreatedAtAction("Get", new { id = education.Id }, education);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Resume resume)
+        public IActionResult Put(int id, Education education)
         {
             var currentUserProfile = GetCurrentUserProfile();
 
-            if (currentUserProfile.Id != resume.UserProfileId)
+            if (currentUserProfile.Id != education.UserProfileId)
             {
                 return Unauthorized();
             }
 
-            if (id != resume.Id)
+            if (id != education.Id)
             {
                 return BadRequest();
             }
 
-            _resumeRepository.Update(resume);
+            _educationRepository.Update(education);
             return NoContent();
         }
 
@@ -85,14 +77,14 @@ namespace ResumeRandomizer.Controllers
         public IActionResult Delete(int id)
         {
             var currentUserProfile = GetCurrentUserProfile();
-            var resume = _resumeRepository.GetById(id);
+            var education = _educationRepository.GetById(id);
 
-            if (currentUserProfile.Id != resume.UserProfileId)
+            if (currentUserProfile.Id != education.UserProfileId)
             {
                 return Unauthorized();
             }
 
-            _resumeRepository.Delete(id);
+            _educationRepository.Delete(id);
             return NoContent();
         }
 

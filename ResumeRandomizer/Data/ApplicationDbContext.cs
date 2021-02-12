@@ -11,5 +11,7 @@ namespace ResumeRandomizer.Data
 
         public DbSet<Resume> Resume { get; set; }
 
+        public DbSet<Education> Education { get; set; }
+
     }
 }

@@ -1,0 +1,9 @@
+.educationList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.educationInfo {
+  margin: 2em;
+  flex-basis: 30%;
+}

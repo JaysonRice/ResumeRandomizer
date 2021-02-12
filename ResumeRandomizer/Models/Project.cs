@@ -12,9 +12,6 @@ namespace ResumeRandomizer.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(255)]
-        public string Title { get; set; }
-        [Required]
         public string ProjectName { get; set; }
 
         public DateTime? DateStarted { get; set; }
