@@ -75,7 +75,7 @@ export default function Header() {
       )}
 
       {!isLoggedIn && (
-        <Menu>
+        <Menu secondary>
           <>
             <Menu.Item>
               <Menu.Item as={Link} tag={RRNavLink} to="/login">

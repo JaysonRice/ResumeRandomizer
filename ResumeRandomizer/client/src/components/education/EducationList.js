@@ -13,7 +13,7 @@ const EducationList = () => {
 
   useEffect(() => {
     getUserEducation(userProfile.id);
-  }, [education]);
+  }, []);
 
   if (!education) {
     return null;

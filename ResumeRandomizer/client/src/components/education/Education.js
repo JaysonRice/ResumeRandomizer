@@ -5,11 +5,12 @@ import { FormatDate } from "../helpers/FormatDate";
 import EditEducationForm from "./EditEducationForm";
 
 export default ({ education }) => {
+  const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const [showDeleteModal, setDeleteShowModal] = useState(false);
   const toggleDelete = () => setDeleteShowModal(!showDeleteModal);
   const [editingEducation, setEditingEducation] = useState(false);
 
-  const { deleteEducation } = useContext(EducationContext);
+  const { getUserEducation, deleteEducation } = useContext(EducationContext);
 
   let formatedDate;
   if (education.dateGraduated != null) {
@@ -18,7 +19,9 @@ export default ({ education }) => {
 
   const removeEducation = (e) => {
     e.preventDefault();
-    deleteEducation(education.id).then(toggleDelete);
+    deleteEducation(education.id)
+      .then(() => getUserEducation(userProfileId))
+      .then(toggleDelete);
   };
 
   return (

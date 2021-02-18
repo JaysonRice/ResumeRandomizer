@@ -6,7 +6,7 @@ import Calendar from "react-calendar";
 
 const AddEducationForm = ({ setAddingEducation }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-  const { addEducation } = useContext(EducationContext);
+  const { getUserEducation, addEducation } = useContext(EducationContext);
 
   const [formState, setformState] = useState({ userProfileId: +userProfileId });
   const [value, setValue] = useState(new Date());
@@ -25,7 +25,9 @@ const AddEducationForm = ({ setAddingEducation }) => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
     formState.dateGraduated = value.toLocaleDateString("zh-Hans-CN");
-    addEducation(formState).then(setAddingEducation(false));
+    addEducation(formState)
+      .then(() => getUserEducation(userProfileId))
+      .then(setAddingEducation(false));
   };
 
   return (

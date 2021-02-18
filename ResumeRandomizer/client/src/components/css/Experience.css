@@ -1,0 +1,9 @@
+.experienceList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.experienceInfo {
+  margin: 2em;
+  flex-basis: 30%;
+}

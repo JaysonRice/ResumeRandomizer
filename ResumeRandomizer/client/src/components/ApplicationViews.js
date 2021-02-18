@@ -2,9 +2,12 @@ import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import EducationList from "./education/EducationList";
+import ExperienceList from "./experience/ExperienceList";
 import Login from "./Login";
 import Register from "./Register";
 import ResumeList from "./resumes/ResumeList";
+import "./css/Education.css";
+import "./css/Experience.css";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -21,7 +24,7 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/experience">
-          <p>Experience</p>
+          <ExperienceList />
         </Route>
 
         <Route path="/projects">
