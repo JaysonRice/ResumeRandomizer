@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
 import { Button, Modal } from "semantic-ui-react";
 import { ExperienceContext } from "../../providers/ExperienceProvider";
+import AddExperienceForm from "./AddExperienceForm";
 import Experience from "./Experience";
 
 const ExperienceList = () => {
   const { experience, getUserExperience } = useContext(ExperienceContext);
   const userProfile = JSON.parse(sessionStorage.userProfile);
 
-  //   const [addingExperience, setAddingExperience] = useState(false);
+  const [addingExperience, setAddingExperience] = useState(false);
 
   useEffect(() => {
     getUserExperience(userProfile.id);
@@ -22,13 +22,13 @@ const ExperienceList = () => {
     <>
       <h3>{userProfile.firstName}'s Experience</h3>
 
-      {/* {addingExperience ? (
+      {addingExperience ? (
         <AddExperienceForm setAddingExperience={setAddingExperience} />
       ) : (
         <Button onClick={() => setAddingExperience(true)}>
           Add Experience
         </Button>
-      )} */}
+      )}
 
       <div className="experienceList">
         {experience.map((experience) => {

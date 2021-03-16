@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
 import { Button, Form, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import Calendar from "react-calendar";
