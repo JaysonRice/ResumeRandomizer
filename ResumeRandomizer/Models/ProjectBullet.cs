@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace ResumeRandomizer.Models
 {
-    public class Bullet
+    public class ProjectBullet
     {
         public int Id { get; set; }
 
-        public int? ExperienceId { get; set; }
-
-        public Experience Experience { get; set; }
-
-        public int? ProjectId { get; set; }
-
-        public Project Project { get; set; }
+        public int ProjectId { get; set; }
 
         public string Content { get; set; }
     }

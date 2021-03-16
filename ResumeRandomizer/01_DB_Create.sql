@@ -13,7 +13,8 @@ DROP TABLE IF EXISTS [ResumeExperience];
 DROP TABLE IF EXISTS [Resume];
 DROP TABLE IF EXISTS [Color];
 DROP TABLE IF EXISTS [Font];
-DROP TABLE IF EXISTS [Bullet];
+DROP TABLE IF EXISTS [ExperienceBullet];
+DROP TABLE IF EXISTS [ProjectBullet];
 DROP TABLE IF EXISTS [Project];
 DROP TABLE IF EXISTS [Experience];
 DROP TABLE IF EXISTS [Education];
@@ -91,10 +92,16 @@ CREATE TABLE [ResumeProject] (
 )
 GO
 
-CREATE TABLE [Bullet] (
+CREATE TABLE [ProjectBullet] (
+  [Id] integer IDENTITY PRIMARY KEY NOT NULL,
+  [ProjectId] integer,
+  [Content] varchar(255) NOT NULL,
+)
+GO
+
+CREATE TABLE [ExperienceBullet] (
   [Id] integer IDENTITY PRIMARY KEY NOT NULL,
   [ExperienceId] integer,
-  [ProjectId] integer,
   [Content] varchar(255) NOT NULL,
 )
 GO
@@ -121,10 +128,10 @@ GO
 ALTER TABLE [ResumeExperience] ADD FOREIGN KEY ([ResumeId]) REFERENCES [Resume] ([Id])
 GO
 
-ALTER TABLE [Bullet] ADD FOREIGN KEY ([ProjectId]) REFERENCES [Project] ([Id])
+ALTER TABLE [ProjectBullet] ADD FOREIGN KEY ([ProjectId]) REFERENCES [Project] ([Id])
 GO
 
-ALTER TABLE [Bullet] ADD FOREIGN KEY ([ExperienceId]) REFERENCES [Experience] ([Id])
+ALTER TABLE [ExperienceBullet] ADD FOREIGN KEY ([ExperienceId]) REFERENCES [Experience] ([Id])
 GO
 
 ALTER TABLE [ResumeProject] ADD FOREIGN KEY ([ResumeId]) REFERENCES [Resume] ([Id])
@@ -206,24 +213,27 @@ insert into ResumeProject (Id, ResumeId, ProjectId) values (1, 1, 1);
 insert into ResumeProject (Id, ResumeId, ProjectId) values (2, 1, 2);
 set identity_insert [ResumeProject] off
 
-set identity_insert [Bullet] on
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (1, 1, null, 'Drafted and proposed digital marketing strategies to clients');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (2, 1, null, 'Worked in collaboration with manager to develop marketing content for Robert Schuller Ministries, Honey Do Service, Tan 2000, ALuxuryLimo, and Red Rooster Bakery');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (3, 1, null, 'Ran 2-4 Facebook Ad campaigns per client and updated content based on interaction');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (4, 1, null, 'Produced 20 episodes of Sunday at Sunnybrook on YouToo America and 10 episodes of World Changers with Jamie Osborne on BizTV');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (5, 1, null, 'Created 5-10 images and 2-3 videos per week for social media posts with Adobe Suite software');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (6, 2, null, 'Developed full-stack applications using HTML, CSS, JavaScript, React, C#, and .NET framework');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (7, 2, null, 'Constructed CRUD functional applications that utilize authentication through Firebase');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (8, 2, null, 'Communicated with teams remotely and in person to complete group sprints');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (9, 2, null, 'Demonstrated use of source code version control with Git / GitHub');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (10, 2, null, 'Designed applications through white-boarding dependencies, drawing wireframes, and building ERDs');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (11, 2, null, 'Managed a database with SQL subqueries, stored procedures, transactions, and indexes');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (12, null, 1, 'Users are able to follow other users to tailor their main feed');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (13, null, 1, 'Customize the experience by following interesting pet photographers and filtering by animal type');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (14, null, 1, 'Built with React using JSON server, with full CRUD functionality to store user and pet information');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (15, null, 1, 'Single page application where users upload pictures of pets to share on a social platform');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (16, null, 1, 'Photos stored using Cloudinary''s image services');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (17, null, 2, 'Frame Advance is an application created for competitive people who want to review footage of past games in order to improve');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (18, null, 2, 'Users can make a post with a YouTube link, create timestamps, and leave notes about what happened ');
-insert into Bullet (Id, ExperienceId, ProjectId, Content) values (19, null, 2, 'Built using C#, ASP.NET Core, Entity Framework Core, SQL Server, React, and styled with Reactstrap ');
-set identity_insert [Bullet] off
+set identity_insert [ExperienceBullet] on
+insert into ExperienceBullet (Id, ExperienceId, Content) values (1, 1, 'Drafted and proposed digital marketing strategies to clients');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (2, 1, 'Worked in collaboration with manager to develop marketing content for Robert Schuller Ministries, Honey Do Service, Tan 2000, ALuxuryLimo, and Red Rooster Bakery');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (3, 1, 'Ran 2-4 Facebook Ad campaigns per client and updated content based on interaction');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (4, 1, 'Produced 20 episodes of Sunday at Sunnybrook on YouToo America and 10 episodes of World Changers with Jamie Osborne on BizTV');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (5, 1, 'Created 5-10 images and 2-3 videos per week for social media posts with Adobe Suite software');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (6, 2, 'Developed full-stack applications using HTML, CSS, JavaScript, React, C#, and .NET framework');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (7, 2, 'Constructed CRUD functional applications that utilize authentication through Firebase');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (8, 2, 'Communicated with teams remotely and in person to complete group sprints');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (9, 2, 'Demonstrated use of source code version control with Git / GitHub');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (10, 2, 'Designed applications through white-boarding dependencies, drawing wireframes, and building ERDs');
+insert into ExperienceBullet (Id, ExperienceId, Content) values (11, 2, 'Managed a database with SQL subqueries, stored procedures, transactions, and indexes');
+set identity_insert [ExperienceBullet] off
+
+set identity_insert [ProjectBullet] on
+insert into ProjectBullet (Id, ProjectId, Content) values (12, 1, 'Users are able to follow other users to tailor their main feed');
+insert into ProjectBullet (Id, ProjectId, Content) values (13, 1, 'Customize the experience by following interesting pet photographers and filtering by animal type');
+insert into ProjectBullet (Id, ProjectId, Content) values (14, 1, 'Built with React using JSON server, with full CRUD functionality to store user and pet information');
+insert into ProjectBullet (Id, ProjectId, Content) values (15, 1, 'Single page application where users upload pictures of pets to share on a social platform');
+insert into ProjectBullet (Id, ProjectId, Content) values (16, 1, 'Photos stored using Cloudinary''s image services');
+insert into ProjectBullet (Id, ProjectId, Content) values (17, 2, 'Frame Advance is an application created for competitive people who want to review footage of past games in order to improve');
+insert into ProjectBullet (Id, ProjectId, Content) values (18, 2, 'Users can make a post with a YouTube link, create timestamps, and leave notes about what happened ');
+insert into ProjectBullet (Id, ProjectId, Content) values (19, 2, 'Built using C#, ASP.NET Core, Entity Framework Core, SQL Server, React, and styled with Reactstrap ');
+set identity_insert [ProjectBullet] off

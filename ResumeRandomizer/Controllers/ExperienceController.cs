@@ -35,6 +35,7 @@ namespace ResumeRandomizer.Controllers
         public IActionResult Get(int id)
         {
             var experience = _experienceRepository.GetById(id);
+
             if (experience == null)
             {
                 return NotFound();

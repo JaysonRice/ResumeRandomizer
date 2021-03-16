@@ -22,14 +22,14 @@ namespace ResumeRandomizer.Repositories
         {
             return _context.Experience
                 .Where(e => e.UserProfileId == id)
-                .Include(e => e.Bullets)
+                .Include(e => e.ExperienceBullets)
                 .ToList();
         }
 
         public Experience GetById(int id)
         {
             return _context.Experience
-                .Include(e => e.Bullets)
+                .Include(e => e.ExperienceBullets)
                 .FirstOrDefault(e => e.Id == id);
         }
 

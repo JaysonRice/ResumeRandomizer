@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Modal } from "semantic-ui-react";
 import { ExperienceContext } from "../../providers/ExperienceProvider";
 import { FormatDate } from "../helpers/FormatDate";
@@ -27,6 +27,11 @@ export default ({ experience }) => {
           <div className="experienceInfo">
             <h3>{experience.jobTitle}</h3>
             <h5>Company: {experience.company}</h5>
+            <ul>
+              {experience.experienceBullets.map((b) => {
+                return <li>{b.content}</li>;
+              })}
+            </ul>
 
             {/* {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
             <Button onClick={() => setEditingExperience(true)}>Edit</Button>
