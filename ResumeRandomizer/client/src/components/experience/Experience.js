@@ -38,7 +38,7 @@ export default ({ experience }) => {
             </h5>
             <ul>
               {experience.experienceBullets.map((b) => {
-                return <li>{b.content}</li>;
+                return <li key={b.id}>{b.content}</li>;
               })}
             </ul>
           </div>

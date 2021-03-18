@@ -7,3 +7,7 @@
   margin: 2em;
   flex-basis: 30%;
 }
+
+.calendarButton {
+  align-self: flex-end;
+}
