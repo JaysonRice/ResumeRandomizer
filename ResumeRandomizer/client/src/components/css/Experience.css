@@ -1,11 +1,15 @@
 .experienceList {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  margin: 2em;
+}
+.experienceCard {
+  margin: 2em;
 }
 .experienceInfo {
-  margin: 2em;
-  flex-basis: 30%;
+  display: flex;
+  align-items: baseline;
+}
+.expGrid {
+  margin-bottom: 2em;
 }
 
 .calendarButton {

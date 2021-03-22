@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, Modal } from "semantic-ui-react";
+import { Button, Card, Grid, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import { FormatDate } from "../helpers/FormatDate";
 import EditEducationForm from "./EditEducationForm";
@@ -26,38 +26,51 @@ export default ({ education }) => {
 
   return (
     <>
-      <div className="educationOverview">
-        <Card>
+      <Card color="teal" fluid>
+        <div className="educationCard">
           {!editingEducation ? (
-            <div className="educationInfo">
-              <h3>{education.institution}</h3>
-              <h5>Degree: {education.degree}</h5>
-              {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
-              <Button onClick={() => setEditingEducation(true)}>Edit</Button>
-              <Button onClick={toggleDelete}>Remove</Button>
-            </div>
+            <Grid stackable>
+              <Grid.Column width={9}>
+                <h3>
+                  {education.institution} - {education.degree}
+                </h3>
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <h3>
+                  {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
+                </h3>
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <Button color="teal" onClick={() => setEditingEducation(true)}>
+                  Edit
+                </Button>
+                <Button color="red" onClick={toggleDelete}>
+                  Remove
+                </Button>
+              </Grid.Column>
+            </Grid>
           ) : (
             <EditEducationForm
               education={education}
               setEditingEducation={setEditingEducation}
             />
           )}
-        </Card>
 
-        <Modal open={showDeleteModal} toggle={toggleDelete}>
-          <Modal.Header toggle={toggleDelete}>
-            Delete this Education?
-          </Modal.Header>
-          <Modal.Content>
-            <div className="buttonContainer">
-              <Button onClick={toggleDelete}>Cancel</Button>
-              <Button negative type="submit" onClick={removeEducation}>
-                Delete
-              </Button>
-            </div>
-          </Modal.Content>
-        </Modal>
-      </div>
+          <Modal open={showDeleteModal} toggle={toggleDelete}>
+            <Modal.Header toggle={toggleDelete}>
+              Delete this Education?
+            </Modal.Header>
+            <Modal.Content>
+              <div className="buttonContainer">
+                <Button onClick={toggleDelete}>Cancel</Button>
+                <Button negative type="submit" onClick={removeEducation}>
+                  Delete
+                </Button>
+              </div>
+            </Modal.Content>
+          </Modal>
+        </div>
+      </Card>
     </>
   );
 };

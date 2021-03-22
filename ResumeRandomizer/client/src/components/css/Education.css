@@ -1,8 +1,11 @@
 .educationList {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  margin: 2em;
 }
+
+.educationCard {
+  margin: 2em;
+}
+
 .educationInfo {
   margin: 2em;
   flex-basis: 30%;
