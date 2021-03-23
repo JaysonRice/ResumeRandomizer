@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Accordion, Button, Card, Grid, Icon, Modal } from "semantic-ui-react";
 import { ExperienceContext } from "../../providers/ExperienceProvider";
 import { FormatDate } from "../helpers/FormatDate";
+import EditExperienceForm from "./EditExperienceForm";
 
 export default ({ experience }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
@@ -68,11 +69,10 @@ export default ({ experience }) => {
               </Grid>
             </div>
           ) : (
-            <p>editing</p>
-            // <EditEperienceForm
-            //   experience={experience}
-            //   setEditingExperience={setEditingExperience}
-            // />
+            <EditExperienceForm
+              experience={experience}
+              setEditingExperience={setEditingExperience}
+            />
           )}
 
           <Accordion styled fluid>

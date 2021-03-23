@@ -23,7 +23,7 @@ const AddEducationForm = ({ setAddingEducation }) => {
   const submit = (e) => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
-    formState.dateGraduated = value.toLocaleDateString("zh-Hans-CN");
+    formState.dateGraduated = value.toLocaleDateString();
     addEducation(formState)
       .then(() => getUserEducation(userProfileId))
       .then(setAddingEducation(false));

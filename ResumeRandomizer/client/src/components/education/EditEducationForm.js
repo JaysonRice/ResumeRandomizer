@@ -8,7 +8,7 @@ const EditEducationForm = ({ education, setEditingEducation }) => {
   const { getUserEducation, editEducation } = useContext(EducationContext);
 
   const [formState, setformState] = useState({ userProfileId: +userProfileId });
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(new Date(education.dateGraduated));
 
   const calendarChange = (nextValue) => {
     setValue(nextValue);
@@ -27,7 +27,7 @@ const EditEducationForm = ({ education, setEditingEducation }) => {
   const submitChanges = (e) => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
-    formState.dateGraduated = value.toLocaleDateString("zh-Hans-CN");
+    formState.dateGraduated = value.toLocaleDateString();
     editEducation(formState.id, formState)
       .then(() => getUserEducation(userProfileId))
       .then(setEditingEducation(false));
@@ -41,7 +41,7 @@ const EditEducationForm = ({ education, setEditingEducation }) => {
             id="institution"
             onChange={handleUserInput}
             label="Institution Name"
-            placeholder={education.institution}
+            defaultValue={education.institution}
             required
           />
         </Form.Group>
@@ -51,7 +51,7 @@ const EditEducationForm = ({ education, setEditingEducation }) => {
             id="degree"
             onChange={handleUserInput}
             label="Degree"
-            placeholder={education.degree}
+            defaultValue={education.degree}
             required
           />
         </Form.Group>
@@ -61,11 +61,7 @@ const EditEducationForm = ({ education, setEditingEducation }) => {
             label="Date Graduated"
             value={value.toLocaleDateString()}
           />
-          <Calendar
-            onChange={calendarChange}
-            value={value}
-            defaultValue={education.dateGraduated}
-          />
+          <Calendar onChange={calendarChange} value={value} />
         </Form.Group>
 
         <Form.Group>

@@ -1,21 +1,21 @@
-import React, { useContext, useState } from "react";
-import { Button, Form, Modal, Grid } from "semantic-ui-react";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import { ExperienceContext } from "../../providers/ExperienceProvider";
 import Calendar from "react-calendar";
 
-const AddExperienceForm = ({ setAddingExperience }) => {
+const EditExperienceForm = ({ experience, setEditingExperience }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-  const { getUserExperience, addExperience } = useContext(ExperienceContext);
-
+  const { getUserExperience, editExperience } = useContext(ExperienceContext);
   const [formState, setformState] = useState({ userProfileId: +userProfileId });
-  // All of these states are used to conditionally render form elements
-  // Would love to find a cleaner solution in the future
+
   const [addingStartDate, setAddingStartDate] = useState(false);
-  const [currentJob, setCurrentJob] = useState(true);
+  const [currentJob, setCurrentJob] = useState(!experience.dateFinished);
   const [addingEndDate, setAddingEndDate] = useState(false);
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date(experience.dateStarted));
+  const [endDate, setEndDate] = useState(
+    new Date(experience.dateFinished || new Date())
+  );
 
   const calendarStartChange = (nextValue) => {
     setStartDate(nextValue);
@@ -31,19 +31,23 @@ const AddExperienceForm = ({ setAddingExperience }) => {
     setformState(updatedState);
   };
 
-  const submit = (e) => {
+  useEffect(() => {
+    setformState(experience);
+  }, []);
+
+  const submitChanges = (e) => {
     e.preventDefault();
+    debugger;
     formState.userProfileId = userProfileId;
     formState.dateStarted = startDate.toLocaleDateString();
-
     if (currentJob) {
       formState.dateFinished = null;
     } else {
       formState.dateFinished = endDate.toLocaleDateString();
     }
-    addExperience(formState)
+    editExperience(formState.id, formState)
       .then(() => getUserExperience(userProfileId))
-      .then(setAddingExperience(false));
+      .then(setEditingExperience(false));
   };
 
   return (
@@ -54,7 +58,7 @@ const AddExperienceForm = ({ setAddingExperience }) => {
             id="jobTitle"
             onChange={handleUserInput}
             label="Job Title"
-            placeholder="Job Title"
+            defaultValue={experience.jobTitle}
             required
           />
         </Form.Group>
@@ -64,7 +68,7 @@ const AddExperienceForm = ({ setAddingExperience }) => {
             id="company"
             onChange={handleUserInput}
             label="Company"
-            placeholder="Company"
+            defaultValue={experience.company}
             required
           />
         </Form.Group>
@@ -88,7 +92,7 @@ const AddExperienceForm = ({ setAddingExperience }) => {
 
         {addingStartDate ? (
           <Form.Group>
-            <Calendar onChange={calendarStartChange} defaultValue={startDate} />
+            <Calendar onChange={calendarStartChange} value={startDate} />
           </Form.Group>
         ) : (
           ""
@@ -98,13 +102,13 @@ const AddExperienceForm = ({ setAddingExperience }) => {
           <p>Is this your current job?</p>
           <Form.Radio
             label={currentJob ? "Yes" : "No"}
-            defaultChecked
+            defaultChecked={currentJob}
             toggle
             onClick={() => setCurrentJob(!currentJob)}
           />
         </Form.Group>
 
-        {currentJob ? (
+        {currentJob && endDate ? (
           ""
         ) : (
           <Form.Group>
@@ -127,13 +131,13 @@ const AddExperienceForm = ({ setAddingExperience }) => {
 
         {addingEndDate && !currentJob ? (
           <Form.Group>
-            <Calendar onChange={calendarEndChange} defaultValue={endDate} />
+            <Calendar onChange={calendarEndChange} value={endDate} />
           </Form.Group>
         ) : (
           ""
         )}
 
-        <Button color="black" onClick={() => setAddingExperience(false)}>
+        <Button color="black" onClick={() => setEditingExperience(false)}>
           Cancel
         </Button>
         <Button
@@ -141,11 +145,11 @@ const AddExperienceForm = ({ setAddingExperience }) => {
           labelPosition="right"
           icon="checkmark"
           positive
-          onClick={submit}
+          onClick={submitChanges}
         />
       </Form>
     </>
   );
 };
 
-export default AddExperienceForm;
+export default EditExperienceForm;
