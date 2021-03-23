@@ -23,6 +23,7 @@ namespace ResumeRandomizer.Repositories
             return _context.Experience
                 .Where(e => e.UserProfileId == id)
                 .Include(e => e.ExperienceBullets)
+                .OrderByDescending(e => e.DateStarted)
                 .ToList();
         }
 

@@ -40,7 +40,7 @@ export default ({ education }) => {
                   {formatedDate ? <h5>Date Graduated: {formatedDate}</h5> : ""}
                 </h3>
               </Grid.Column>
-              <Grid.Column width={3}>
+              <Grid.Column floated="right" width={3}>
                 <Button color="teal" onClick={() => setEditingEducation(true)}>
                   Edit
                 </Button>

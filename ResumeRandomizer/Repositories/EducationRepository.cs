@@ -23,6 +23,7 @@ namespace ResumeRandomizer.Repositories
         {
             return _context.Education
                 .Where(e => e.UserProfileId == id)
+                .OrderByDescending(e=>e.DateGraduated)
                 .ToList();
         }
 

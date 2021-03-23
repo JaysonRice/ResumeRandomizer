@@ -17,9 +17,11 @@ const ResumeList = () => {
   return (
     <>
       <h3>{userProfile.firstName}'s Resumes</h3>
-      {resumes.map((resume) => {
-        return <Resume key={resume.id} resume={resume} />;
-      })}
+      <div className="resumeList">
+        {resumes.map((resume) => {
+          return <Resume key={resume.id} resume={resume} />;
+        })}
+      </div>
     </>
   );
 };

@@ -8,6 +8,7 @@ import Register from "./Register";
 import ResumeList from "./resumes/ResumeList";
 import "./css/Education.css";
 import "./css/Experience.css";
+import "./css/ResumeList.css";
 import "react-calendar/dist/Calendar.css";
 
 export default function ApplicationViews() {
