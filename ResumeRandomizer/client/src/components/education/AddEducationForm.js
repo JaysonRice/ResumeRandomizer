@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
 import { Button, Form, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import Calendar from "react-calendar";
 
 const AddEducationForm = ({ setAddingEducation }) => {
   const userProfileId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-  const { addEducation } = useContext(EducationContext);
+  const { getUserEducation, addEducation } = useContext(EducationContext);
 
   const [formState, setformState] = useState({ userProfileId: +userProfileId });
   const [value, setValue] = useState(new Date());
@@ -24,8 +23,10 @@ const AddEducationForm = ({ setAddingEducation }) => {
   const submit = (e) => {
     e.preventDefault();
     formState.userProfileId = userProfileId;
-    formState.dateGraduated = value.toLocaleDateString("zh-Hans-CN");
-    addEducation(formState).then(setAddingEducation(false));
+    formState.dateGraduated = value.toLocaleDateString();
+    addEducation(formState)
+      .then(() => getUserEducation(userProfileId))
+      .then(setAddingEducation(false));
   };
 
   return (

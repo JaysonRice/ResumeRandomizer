@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
 import { Button, Modal } from "semantic-ui-react";
 import { EducationContext } from "../../providers/EducationProvider";
 import AddEducationForm from "./AddEducationForm";
@@ -13,7 +12,7 @@ const EducationList = () => {
 
   useEffect(() => {
     getUserEducation(userProfile.id);
-  }, [education]);
+  }, []);
 
   if (!education) {
     return null;

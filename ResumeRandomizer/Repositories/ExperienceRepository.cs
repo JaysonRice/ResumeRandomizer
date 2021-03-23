@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResumeRandomizer.Data;
 using ResumeRandomizer.Models;
-using ResumeRandomizer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,49 +8,50 @@ using System.Threading.Tasks;
 
 namespace ResumeRandomizer.Repositories
 {
-    public class EducationRepository
+    public class ExperienceRepository
     {
 
         private readonly ApplicationDbContext _context;
 
-        public EducationRepository(ApplicationDbContext context)
+        public ExperienceRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public List<Education> GetByUserProfileId(int id)
+        public List<Experience> GetByUserProfileId(int id)
         {
-            return _context.Education
+            return _context.Experience
                 .Where(e => e.UserProfileId == id)
-                .OrderByDescending(e=>e.DateGraduated)
+                .Include(e => e.ExperienceBullets)
+                .OrderByDescending(e => e.DateStarted)
                 .ToList();
         }
 
-        public Education GetById(int id)
+        public Experience GetById(int id)
         {
-            return _context.Education
+            return _context.Experience
+                .Include(e => e.ExperienceBullets)
                 .FirstOrDefault(e => e.Id == id);
         }
 
 
-        public void Add(Education education)
+        public void Add(Experience experience)
         {
-            _context.Add(education);
+            _context.Add(experience);
             _context.SaveChanges();
         }
 
-        public void Update(Education education)
+        public void Update(Experience experience)
         {
-            _context.Entry(education).State = EntityState.Modified;
+            _context.Entry(experience).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var education = GetById(id);
-            _context.Education.Remove(education);
+            var experience = GetById(id);
+            _context.Experience.Remove(experience);
             _context.SaveChanges();
         }
     }
 }
-

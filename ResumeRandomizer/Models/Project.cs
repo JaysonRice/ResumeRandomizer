@@ -23,6 +23,6 @@ namespace ResumeRandomizer.Models
 
         public UserProfile UserProfile { get; set; }
 
-        public List<Bullet> Bullets { get; set; }
+        public List<ProjectBullet> ProjectBullets { get; set; }
     }
 }
