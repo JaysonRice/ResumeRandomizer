@@ -14,6 +14,7 @@ namespace ResumeRandomizer.Data
         public DbSet<Education> Education { get; set; }
 
         public DbSet<Experience> Experience { get; set; }
+        public DbSet<Project> Project { get; set; }
 
     }
 }
