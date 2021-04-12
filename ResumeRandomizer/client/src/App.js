@@ -6,20 +6,23 @@ import { ResumeProvider } from "./providers/ResumeProvider";
 import Header from "./components/Header";
 import { EducationProvider } from "./providers/EducationProvider";
 import { ExperienceProvider } from "./providers/ExperienceProvider";
+import { ProjectProvider } from "./providers/ProjectProvider";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <UserProfileProvider>
-          <ExperienceProvider>
-            <EducationProvider>
-              <ResumeProvider>
-                <Header />
-                <ApplicationViews />
-              </ResumeProvider>
-            </EducationProvider>
-          </ExperienceProvider>
+          <ProjectProvider>
+            <ExperienceProvider>
+              <EducationProvider>
+                <ResumeProvider>
+                  <Header />
+                  <ApplicationViews />
+                </ResumeProvider>
+              </EducationProvider>
+            </ExperienceProvider>
+          </ProjectProvider>
         </UserProfileProvider>
       </Router>
     </div>

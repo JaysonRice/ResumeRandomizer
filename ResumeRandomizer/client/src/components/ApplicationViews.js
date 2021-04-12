@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import EducationList from "./education/EducationList";
 import ExperienceList from "./experience/ExperienceList";
+import ProjectList from "./projects/ProjectList";
 import Login from "./Login";
 import Register from "./Register";
 import ResumeList from "./resumes/ResumeList";
@@ -30,7 +31,7 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/projects">
-          <p>Projects</p>
+          <ProjectList />
         </Route>
 
         <Route path="/login">

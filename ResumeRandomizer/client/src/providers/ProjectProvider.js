@@ -5,12 +5,12 @@ import "firebase/auth";
 export const ProjectContext = React.createContext();
 
 export const ProjectProvider = (props) => {
-  const [project, setProject] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   const apiUrl = "/api/project";
   const { getToken } = useContext(UserProfileContext);
 
-  const getProject = (id) => {
+  const getProjects = (id) => {
     return getToken().then((token) =>
       fetch(apiUrl + `/${id}`, {
         method: "Get",
@@ -28,7 +28,7 @@ export const ProjectProvider = (props) => {
     );
   };
 
-  const getUserProject = (id) => {
+  const getUserProjects = (id) => {
     getToken().then((token) =>
       fetch(apiUrl + `/getbyuser/${id}`, {
         method: "Get",
@@ -38,7 +38,7 @@ export const ProjectProvider = (props) => {
         },
       }).then((resp) => {
         if (resp.ok) {
-          return resp.json().then(setProject);
+          return resp.json().then(setProjects);
         }
         throw new Error("Unauthorized");
       })
@@ -99,9 +99,9 @@ export const ProjectProvider = (props) => {
   return (
     <ProjectContext.Provider
       value={{
-        project,
-        getProject,
-        getUserProject,
+        projects,
+        getProjects,
+        getUserProjects,
         addProject,
         deleteProject,
         editProject,
